@@ -6,7 +6,7 @@ const CDN = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
 ort.env.wasm.wasmPaths = CDN;
 ort.env.wasm.numThreads = 1;          // jednowątkowo: brak wymogu nagłówków COOP/COEP (działa na GitHub Pages)
 
-const GAUGE_MAX = 40;                  // skala wskaźnika kołowego: 0–40%
+const GAUGE_MAX = 60;                  // skala wskaźnika kołowego: 0–60%
 
 const $ = (id) => document.getElementById(id);
 const btn = $("btn");
@@ -43,11 +43,14 @@ async function init() {
   }
 }
 
-/* Zbiera wartości z formularza i mapuje na cechy modelu (dokładne nazwy cech jako klucze). */
+/* Zbiera wartości z formularza i mapuje na cechy modelu (dokładne nazwy cech jako klucze).
+   Mapowanie 1:1 z kalkulator_app_streamlit_referencja.py (model uniwersalny, 26 cech). */
 function collectValues() {
   const yn = (id) => ($(id).checked ? 1 : 0);
   const nyha = $("nyha").value;
   const tryb = $("tryb").value;
+  const plucna = $("plucna").value;   // "brak" | "moderate" | "severe"
+  const weight = $("weight").value;   // "cabg" | "noncabg" | "2" | "3"
   return {
     "age_final": +$("wiek").value,
     "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)": +$("ef").value,
@@ -58,18 +61,25 @@ function collectValues() {
     "Krytyczny stan przedoperacyjny": yn("kryt"),
     "Chronic lung disease": yn("copd"),
     "Extracardiac arteriopathy": yn("arterio"),
+    "Poor mobility": yn("mobil"),
     "Świeży zawał serca": yn("zawal"),
+    "Zapalenie wsierdzia": yn("endo"),
     "Leczenie cukrzycy - Insulina (z lekami doustnymi lub bez)": yn("insulina"),
-    "Chirurgia wieńcowa": yn("wiencowa"),
-    "Operacja zastawki aortalnej": yn("aortalna"),
-    "Operacja zastawki mitralnej": yn("mitralna"),
-    "Operacja aorty piersiowej": yn("aorta"),
     "NYHA (stan obecny) - NYHA III": nyha === "III" ? 1 : 0,
     "NYHA (stan obecny) - NYHA IV": nyha === "IV" ? 1 : 0,
+    "CCS Class - CCS 4": yn("ccs4"),
+    "Pulmonary hypertension - moderate (PA systolic 31-55 mmHg)": plucna === "moderate" ? 1 : 0,
+    "Pulmonary hypertension - severe (PA systolic >55 mmHg)": plucna === "severe" ? 1 : 0,
     "Tryb operacji - Planowa": tryb === "Planowa" ? 1 : 0,
+    "Tryb operacji - Pilna: pacjent nie był przyjęty w celu operacji, ale wymaga operacji w trakcie tego pobytu ze względów medycznych i nie może być wypisany bez operacji.":
+      tryb === "Pilna" ? 1 : 0,
     "Tryb operacji - Ratująca życie: pacjent wymagał resuscytacji krążeniowo-oddechowej w drodze na blok operacyjny lub przed indukcją znieczulenia.":
       tryb === "Ratująca życie" ? 1 : 0,
-    "Pulmonary hypertension - severe (PA systolic >55 mmHg)": yn("plucna"),
+    "Weight of the intervention - isolated CABG": weight === "cabg" ? 1 : 0,
+    "Weight of the intervention - single non CABG": weight === "noncabg" ? 1 : 0,
+    "Weight of the intervention - 2 procedures": weight === "2" ? 1 : 0,
+    "Weight of the intervention - 3 procedures": weight === "3" ? 1 : 0,
+    "Operacja aorty piersiowej": yn("aorta"),
   };
 }
 

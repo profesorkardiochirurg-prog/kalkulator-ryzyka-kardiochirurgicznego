@@ -64,16 +64,30 @@ def onnx_p(d):
     return float(np.array(out[-1]).ravel()[-1])
 
 cases = {
-    "planowy CABG 60 EF60 krea0.9": {
+    "planowy izolowany CABG 60 EF60 krea0.9 (~0,5%)": {
         "age_final": 60, "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)": 60,
-        "Ostatni poziom kreatyniny przed operacją (mg/dl)": 0.9, "Masa ciała (kg)": 80,
-        "Płeć": 1, "Chirurgia wieńcowa": 1, "Tryb operacji - Planowa": 1,
+        "Ostatni poziom kreatyniny przed operacją (mg/dl)": 0.9, "Masa ciała (kg)": 78,
+        "Płeć": 1,
+        "Weight of the intervention - isolated CABG": 1,
+        "Tryb operacji - Planowa": 1,
     },
-    "krytyczny 82 aorta EF25 NYHA IV": {
-        "age_final": 82, "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)": 25,
-        "Ostatni poziom kreatyniny przed operacją (mg/dl)": 1.5, "Masa ciała (kg)": 70,
-        "Płeć": 1, "Operacja zastawki aortalnej": 1, "Krytyczny stan przedoperacyjny": 1,
+    "pojedynczy nie-CABG 74 EF40 NYHA III planowa (~3,1%)": {
+        "age_final": 74, "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)": 40,
+        "Ostatni poziom kreatyniny przed operacją (mg/dl)": 1.0, "Masa ciała (kg)": 78,
+        "Płeć": 1,
+        "NYHA (stan obecny) - NYHA III": 1,
+        "Weight of the intervention - single non CABG": 1,
+        "Tryb operacji - Planowa": 1,
+    },
+    "3 procedury 80 EF25 krytyczny NYHA IV aorta (~53%)": {
+        "age_final": 80, "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)": 25,
+        "Ostatni poziom kreatyniny przed operacją (mg/dl)": 1.0, "Masa ciała (kg)": 78,
+        "Płeć": 1,
+        "Krytyczny stan przedoperacyjny": 1,
         "NYHA (stan obecny) - NYHA IV": 1,
+        "Weight of the intervention - 3 procedures": 1,
+        "Operacja aorty piersiowej": 1,
+        "Tryb operacji - Planowa": 1,
     },
 }
 # losowe przypadki do twardej weryfikacji numerycznej

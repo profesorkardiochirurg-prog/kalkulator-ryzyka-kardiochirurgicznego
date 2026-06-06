@@ -34,11 +34,12 @@
       <span>KardioRisk</span>
     </div>
     <h1>Kalkulator ryzyka 30-dniowej śmiertelności</h1>
-    <p class="hero-sub">Model uczenia maszynowego (gradient boosting) wytrenowany na polskim rejestrze
-       operacji kardiochirurgicznych <strong>KROK</strong>.</p>
+    <p class="hero-sub"><strong>Uniwersalny</strong> model uczenia maszynowego (gradient boosting) na polskim rejestrze
+       <strong>KROK</strong> — ocenia <strong>każdą</strong> operację kardiochirurgiczną u dorosłych.</p>
     <div class="badges">
       <span class="badge badge-primary">AUC 0,805</span>
       <span class="badge">EuroSCORE II: 0,773</span>
+      <span class="badge">Uniwersalny — jak EuroSCORE II</span>
       <span class="badge">296 528 operacji · 2012–2024</span>
     </div>
     <div class="hero-warn" role="alert">
@@ -84,12 +85,11 @@
             <option value="IV">IV</option>
           </select>
         </label>
-        <label class="field field-wide">Tryb operacji
-          <select id="tryb">
-            <option value="Planowa" selected>Planowa</option>
-            <option value="Pilna">Pilna</option>
-            <option value="Nagła">Nagła</option>
-            <option value="Ratująca życie">Ratująca życie (resuscytacja przed znieczuleniem)</option>
+        <label class="field field-wide">Nadciśnienie płucne
+          <select id="plucna">
+            <option value="brak" selected>Brak / łagodne</option>
+            <option value="moderate">Umiarkowane (31–55 mmHg)</option>
+            <option value="severe">Ciężkie (&gt;55 mmHg)</option>
           </select>
         </label>
       </div>
@@ -104,32 +104,48 @@
       <div class="checks">
         <label class="chk"><input type="checkbox" id="reop" /><span>Reoperacja</span></label>
         <label class="chk"><input type="checkbox" id="kryt" /><span>Krytyczny stan przedoperacyjny</span></label>
-        <label class="chk"><input type="checkbox" id="plucna" /><span>Ciężkie nadciśnienie płucne (&gt;55 mmHg)</span></label>
         <label class="chk"><input type="checkbox" id="copd" /><span>Przewlekła choroba płuc</span></label>
         <label class="chk"><input type="checkbox" id="arterio" /><span>Arteriopatia pozasercowa</span></label>
+        <label class="chk"><input type="checkbox" id="mobil" /><span>Ograniczona mobilność</span></label>
         <label class="chk"><input type="checkbox" id="zawal" /><span>Świeży zawał serca</span></label>
+        <label class="chk"><input type="checkbox" id="endo" /><span>Czynne zapalenie wsierdzia</span></label>
         <label class="chk"><input type="checkbox" id="insulina" /><span>Cukrzyca leczona insuliną</span></label>
+        <label class="chk"><input type="checkbox" id="ccs4" /><span>Dławica CCS 4 / niestabilna</span></label>
       </div>
     </section>
 
-    <!-- Zakres operacji -->
+    <!-- Zabieg -->
     <section class="card">
       <div class="card-head">
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5l6 6L9 21H3v-6L14.5 3.5z"/><path d="M12 6l6 6"/></svg>
-        <h2>Zakres operacji <span class="muted">(procedury)</span></h2>
+        <h2>Zabieg</h2>
       </div>
-      <p class="hint">Zaznacz <strong>wszystkie</strong> wykonywane procedury — można łączyć (analogicznie do „weight of intervention" w EuroSCORE II).</p>
+      <div class="grid">
+        <label class="field field-wide">Złożoność zabiegu <span class="unit">(Weight of intervention)</span>
+          <select id="weight">
+            <option value="cabg" selected>Izolowany CABG</option>
+            <option value="noncabg">Pojedynczy zabieg nie-CABG</option>
+            <option value="2">2 procedury</option>
+            <option value="3">3 procedury</option>
+          </select>
+        </label>
+        <label class="field field-wide">Tryb operacji
+          <select id="tryb">
+            <option value="Planowa" selected>Planowa</option>
+            <option value="Pilna">Pilna</option>
+            <option value="Nagła">Nagła</option>
+            <option value="Ratująca życie">Ratująca życie (resuscytacja przed znieczuleniem)</option>
+          </select>
+        </label>
+      </div>
       <div class="checks">
-        <label class="chk"><input type="checkbox" id="wiencowa" /><span>Pomostowanie aortalno-wieńcowe (CABG)</span></label>
-        <label class="chk"><input type="checkbox" id="aortalna" /><span>Operacja zastawki aortalnej</span></label>
-        <label class="chk"><input type="checkbox" id="mitralna" /><span>Operacja zastawki mitralnej</span></label>
         <label class="chk"><input type="checkbox" id="aorta" /><span>Operacja aorty piersiowej</span></label>
       </div>
       <p class="note">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5m0-3h.01"/></svg>
-        <span><strong>Każda operacja kardiochirurgiczna jest objęta.</strong> Procedury inne niż wymienione
-        (np. zastawka trójdzielna, wady wrodzone, guz serca, osierdzie, ablacja, przeszczep) — pozostaw powyższe
-        pola odznaczone; model uwzględnia je jako kategorię bazową (grupę referencyjną), zgodnie ze sposobem trenowania.</span>
+        <span><strong>Model jest uniwersalny — ocenia każdą operację kardiochirurgiczną.</strong> Tak jak w EuroSCORE II
+        dowolny zabieg mieści się w jednej z kategorii złożoności: „Pojedynczy zabieg nie-CABG" obejmuje każdą izolowaną
+        operację niewieńcową (zastawka, guz, wada wrodzona i inne), a „2 / 3 procedury" — zabiegi łączone.</span>
       </p>
     </section>
 
@@ -154,7 +170,7 @@
     <div id="riskLevel" class="risk-level"></div>
     <div class="result-meta">
       <div class="meta-item"><span class="meta-k">Średnia w kohorcie</span><span class="meta-v">~4,5%</span></div>
-      <div class="meta-item"><span class="meta-k">Skala wskaźnika</span><span class="meta-v">0–40%</span></div>
+      <div class="meta-item"><span class="meta-k">Skala wskaźnika</span><span class="meta-v">0–60%</span></div>
     </div>
     <p class="result-disclaimer">Wynik orientacyjny, <strong>wyłącznie do celów badawczych</strong> — nie zastępuje oceny klinicznej.</p>
   </section>
@@ -176,7 +192,7 @@
       </div>
     </div>
     <p class="foot-disclaimer"><strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong>
-       Wersja uproszczona (20 zmiennych klinicznych) modelu badawczego.</p>
+       Wersja uproszczona (26 zmiennych klinicznych) modelu badawczego.</p>
   </footer>
 </main>
 

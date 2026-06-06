@@ -49,7 +49,8 @@ pip install skl2onnx "onnx==1.17.0" onnxruntime
 python export_onnx.py
 ```
 Skrypt zapisuje `model.onnx` + `model_features.json` i weryfikuje zgodność z `predict_proba`
-(max różnica < 1e-6) oraz drukuje wyniki sanity (planowy CABG ≈ 0,5%; krytyczny aorta ≈ 21,8%).
+(max różnica < 1e-6) oraz drukuje wyniki sanity dla modelu uniwersalnego (26 cech):
+planowy izolowany CABG ≈ 0,4%; pojedynczy nie-CABG NYHA III ≈ 2,4%; 3 procedury + aorta, krytyczny, tryb ratujący ≈ 52,8%.
 
 ## Uwagi techniczne
 - onnxruntime-web ładowany z CDN jsDelivr (`onnxruntime-web@1.20.1`); WASM jednowątkowy
