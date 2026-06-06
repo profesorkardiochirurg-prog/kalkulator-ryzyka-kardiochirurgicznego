@@ -72,6 +72,7 @@
       "foot.privacy": `<strong>Prywatność</strong><br/>Obliczenia w całości w Twojej przeglądarce. Żadne dane pacjenta nie są wysyłane ani zapisywane.`,
       "foot.disc": `<strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong> Wersja uproszczona (26 zmiennych klinicznych) modelu badawczego.`,
       "foot.authors": "Autorzy projektu i instytucje →",
+      "nav.authors": "Autorzy i instytucje →",
       // przyciski (dynamiczne, używane przez app.js)
       "btn.calc": "Oblicz ryzyko",
       "btn.loading": "Ładowanie modelu…",
@@ -171,6 +172,7 @@
       "foot.privacy": `<strong>Privacy</strong><br/>All computation runs in your browser. No patient data is sent or stored.`,
       "foot.disc": `<strong>For research purposes only — not for clinical decisions.</strong> Simplified version (26 clinical variables) of the research model.`,
       "foot.authors": "Project authors and institutions →",
+      "nav.authors": "Authors & institutions →",
       "btn.calc": "Calculate risk",
       "btn.loading": "Loading model…",
       "btn.loadError": "Model loading error",

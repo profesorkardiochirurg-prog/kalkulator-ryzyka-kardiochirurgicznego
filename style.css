@@ -40,6 +40,9 @@ body{
   background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
   background-size:22px 22px}
 .hero-inner{position:relative; z-index:1; max-width:780px; margin:0 auto; padding:30px 20px 44px; text-align:center}
+.hero-link{position:absolute; top:18px; left:18px; z-index:3; color:#c9d6e8; font-size:.84rem;
+  font-weight:600; text-decoration:none; opacity:.85; transition:color .15s, opacity .15s}
+.hero-link:hover{color:#fff; opacity:1; text-decoration:underline}
 .logo{display:inline-flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px;
   font-size:1.1rem; margin-bottom:20px}
 .logo .mark{width:40px; height:40px; display:grid; place-items:center; border-radius:12px;
