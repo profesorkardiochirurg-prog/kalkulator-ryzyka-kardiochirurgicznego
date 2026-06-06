@@ -73,6 +73,7 @@
       "foot.disc": `<strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong> Wersja uproszczona (26 zmiennych klinicznych) modelu badawczego.`,
       "foot.authors": "Autorzy projektu i instytucje →",
       "nav.authors": "Autorzy i instytucje →",
+      "foot.madeby": "Wykonanie: Borsuk Studio",
       // przyciski (dynamiczne, używane przez app.js)
       "btn.calc": "Oblicz ryzyko",
       "btn.loading": "Ładowanie modelu…",
@@ -173,6 +174,7 @@
       "foot.disc": `<strong>For research purposes only — not for clinical decisions.</strong> Simplified version (26 clinical variables) of the research model.`,
       "foot.authors": "Project authors and institutions →",
       "nav.authors": "Authors & institutions →",
+      "foot.madeby": "Made by Borsuk Studio",
       "btn.calc": "Calculate risk",
       "btn.loading": "Loading model…",
       "btn.loadError": "Model loading error",
