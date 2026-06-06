@@ -6,7 +6,12 @@ po operacji kardiochirurgicznej u dorosłych. Model bije EuroSCORE II.
 ## Kontekst (skąd to)
 Model pochodzi z projektu badawczego na danych KROK (Krajowy Rejestr Operacji
 Kardiochirurgicznych). Pełna wersja (112 zmiennych) ma AUC 0,824 vs EuroSCORE II 0,773.
-Tu jest wersja **lite (20 zmiennych klinicznych)**, AUC **0,805**, do użytku w kalkulatorze.
+Tu jest wersja **lite UNIWERSALNA (26 zmiennych)**, AUC **0,805**, do użytku w kalkulatorze.
+WAŻNE: model jest uniwersalny **na wzór EuroSCORE II** — ocenia KAŻDĄ operację kardiochirurgiczną
+przez klasyfikację złożoności zabiegu „Weight of the intervention" (izolowany CABG / pojedynczy
+nie-CABG / 2 procedury / 3 procedury) + flagę aorty piersiowej, NIE przez listę wybranych operacji.
+To była poprawka błędu poprzedniej wersji (obejmowała tylko CABG/aortalną/mitralną/aortę, pomijała
+~10% operacji o najwyższym ryzyku). Mapowanie pól → cech: patrz `kalkulator_app_streamlit_referencja.py`.
 Punkt końcowy: zgon 30-dniowy zweryfikowany wobec rejestru zgonów Ministerstwa Zdrowia (PESEL).
 Trening: 296 528 operacji (2012–2024), śmiertelność ~4,5%.
 
