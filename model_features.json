@@ -1,0 +1,48 @@
+{
+  "feat": [
+    "age_final",
+    "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)",
+    "Ostatni poziom kreatyniny przed operacją (mg/dl)",
+    "Masa ciała (kg)",
+    "Płeć",
+    "Czy ta operacja jest reoperacją?",
+    "Krytyczny stan przedoperacyjny",
+    "Chronic lung disease",
+    "Extracardiac arteriopathy",
+    "Świeży zawał serca",
+    "Leczenie cukrzycy - Insulina (z lekami doustnymi lub bez)",
+    "Chirurgia wieńcowa",
+    "Operacja zastawki aortalnej",
+    "Operacja zastawki mitralnej",
+    "Operacja aorty piersiowej",
+    "NYHA (stan obecny) - NYHA III",
+    "NYHA (stan obecny) - NYHA IV",
+    "Tryb operacji - Planowa",
+    "Tryb operacji - Ratująca życie: pacjent wymagał resuscytacji krążeniowo-oddechowej w drodze na blok operacyjny lub przed indukcją znieczulenia.",
+    "Pulmonary hypertension - severe (PA systolic >55 mmHg)"
+  ],
+  "num": [
+    "age_final",
+    "Frakcja wyrzutowa wg ECHO (EF) - wartość (%)",
+    "Ostatni poziom kreatyniny przed operacją (mg/dl)",
+    "Masa ciała (kg)"
+  ],
+  "bin": [
+    "Płeć",
+    "Czy ta operacja jest reoperacją?",
+    "Krytyczny stan przedoperacyjny",
+    "Chronic lung disease",
+    "Extracardiac arteriopathy",
+    "Świeży zawał serca",
+    "Leczenie cukrzycy - Insulina (z lekami doustnymi lub bez)",
+    "Chirurgia wieńcowa",
+    "Operacja zastawki aortalnej",
+    "Operacja zastawki mitralnej",
+    "Operacja aorty piersiowej",
+    "NYHA (stan obecny) - NYHA III",
+    "NYHA (stan obecny) - NYHA IV",
+    "Tryb operacji - Planowa",
+    "Tryb operacji - Ratująca życie: pacjent wymagał resuscytacji krążeniowo-oddechowej w drodze na blok operacyjny lub przed indukcją znieczulenia.",
+    "Pulmonary hypertension - severe (PA systolic >55 mmHg)"
+  ]
+}

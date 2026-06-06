@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kalkulator ryzyka kardiochirurgicznego — 30-dniowa śmiertelność</title>
+<meta name="description" content="Kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Model uczenia maszynowego na danych KROK (AUC 0,805). Wyłącznie do celów badawczych." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <svg class="ecg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+      <path d="M0,100 L300,100 L330,100 L345,60 L360,140 L375,30 L390,170 L405,100 L460,100
+               L600,100 L630,100 L645,60 L660,140 L675,30 L690,170 L705,100 L760,100
+               L900,100 L930,100 L945,60 L960,140 L975,30 L990,170 L1005,100 L1200,100" />
+    </svg>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" class="heart" aria-hidden="true">
+        <path d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4
+                 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z" />
+        <path class="pulse" d="M5 12 H9 L10.5 8.5 L13 15.5 L14.5 12 H19" />
+      </svg>
+      <span>KardioRisk</span>
+    </div>
+    <h1>Kalkulator ryzyka 30-dniowej śmiertelności</h1>
+    <p class="hero-sub">Model uczenia maszynowego (gradient boosting) wytrenowany na polskim rejestrze
+       operacji kardiochirurgicznych <strong>KROK</strong>.</p>
+    <div class="badges">
+      <span class="badge badge-primary">AUC 0,805</span>
+      <span class="badge">EuroSCORE II: 0,773</span>
+      <span class="badge">296 528 operacji · 2012–2024</span>
+    </div>
+    <div class="hero-warn" role="alert">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm0 6v6m0 4h.01"/></svg>
+      <span><strong>Wyłącznie do celów badawczych i demonstracyjnych.</strong> Nie stosować do decyzji klinicznych.</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <form id="form" autocomplete="off">
+
+    <!-- Dane pacjenta -->
+    <section class="card">
+      <div class="card-head">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <h2>Dane pacjenta</h2>
+      </div>
+      <div class="grid">
+        <label class="field">Wiek <span class="unit">(lata)</span>
+          <input type="number" id="wiek" min="18" max="100" step="1" value="65" required />
+        </label>
+        <label class="field">Płeć
+          <select id="plec">
+            <option value="1" selected>Mężczyzna</option>
+            <option value="0">Kobieta</option>
+          </select>
+        </label>
+        <label class="field">Masa ciała <span class="unit">(kg)</span>
+          <input type="number" id="masa" min="30" max="200" step="1" value="78" required />
+        </label>
+        <label class="field">Frakcja wyrzutowa EF <span class="unit">(%)</span>
+          <input type="number" id="ef" min="10" max="80" step="1" value="55" required />
+        </label>
+        <label class="field">Kreatynina <span class="unit">(mg/dl)</span>
+          <input type="number" id="krea" min="0.3" max="12" step="0.1" value="1.0" required />
+        </label>
+        <label class="field">Klasa NYHA
+          <select id="nyha">
+            <option value="I">I</option>
+            <option value="II" selected>II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+          </select>
+        </label>
+        <label class="field field-wide">Tryb operacji
+          <select id="tryb">
+            <option value="Planowa" selected>Planowa</option>
+            <option value="Pilna">Pilna</option>
+            <option value="Nagła">Nagła</option>
+            <option value="Ratująca życie">Ratująca życie (resuscytacja przed znieczuleniem)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- Stan i choroby -->
+    <section class="card">
+      <div class="card-head">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+        <h2>Stan i choroby współistniejące</h2>
+      </div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" id="reop" /><span>Reoperacja</span></label>
+        <label class="chk"><input type="checkbox" id="kryt" /><span>Krytyczny stan przedoperacyjny</span></label>
+        <label class="chk"><input type="checkbox" id="plucna" /><span>Ciężkie nadciśnienie płucne (&gt;55 mmHg)</span></label>
+        <label class="chk"><input type="checkbox" id="copd" /><span>Przewlekła choroba płuc</span></label>
+        <label class="chk"><input type="checkbox" id="arterio" /><span>Arteriopatia pozasercowa</span></label>
+        <label class="chk"><input type="checkbox" id="zawal" /><span>Świeży zawał serca</span></label>
+        <label class="chk"><input type="checkbox" id="insulina" /><span>Cukrzyca leczona insuliną</span></label>
+      </div>
+    </section>
+
+    <!-- Zakres operacji -->
+    <section class="card">
+      <div class="card-head">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5l6 6L9 21H3v-6L14.5 3.5z"/><path d="M12 6l6 6"/></svg>
+        <h2>Zakres operacji <span class="muted">(procedury)</span></h2>
+      </div>
+      <p class="hint">Zaznacz <strong>wszystkie</strong> wykonywane procedury — można łączyć (analogicznie do „weight of intervention" w EuroSCORE II).</p>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" id="wiencowa" /><span>Pomostowanie aortalno-wieńcowe (CABG)</span></label>
+        <label class="chk"><input type="checkbox" id="aortalna" /><span>Operacja zastawki aortalnej</span></label>
+        <label class="chk"><input type="checkbox" id="mitralna" /><span>Operacja zastawki mitralnej</span></label>
+        <label class="chk"><input type="checkbox" id="aorta" /><span>Operacja aorty piersiowej</span></label>
+      </div>
+      <p class="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5m0-3h.01"/></svg>
+        <span><strong>Każda operacja kardiochirurgiczna jest objęta.</strong> Procedury inne niż wymienione
+        (np. zastawka trójdzielna, wady wrodzone, guz serca, osierdzie, ablacja, przeszczep) — pozostaw powyższe
+        pola odznaczone; model uwzględnia je jako kategorię bazową (grupę referencyjną), zgodnie ze sposobem trenowania.</span>
+      </p>
+    </section>
+
+    <button type="submit" id="btn" class="cta" disabled>
+      <span class="spinner" aria-hidden="true"></span>
+      <span class="cta-txt">Ładowanie modelu…</span>
+    </button>
+  </form>
+
+  <!-- Wynik -->
+  <section id="result" class="card result hidden" aria-live="polite">
+    <div class="gauge-wrap">
+      <svg class="gauge" viewBox="0 0 220 130">
+        <path class="gauge-track" d="M20,120 A90,90 0 0 1 200,120" />
+        <path id="gaugeArc" class="gauge-arc" d="M20,120 A90,90 0 0 1 200,120" />
+      </svg>
+      <div class="gauge-center">
+        <div id="riskPct" class="risk-pct">—</div>
+        <div class="risk-cap">ryzyko zgonu / 30 dni</div>
+      </div>
+    </div>
+    <div id="riskLevel" class="risk-level"></div>
+    <div class="result-meta">
+      <div class="meta-item"><span class="meta-k">Średnia w kohorcie</span><span class="meta-v">~4,5%</span></div>
+      <div class="meta-item"><span class="meta-k">Skala wskaźnika</span><span class="meta-v">0–40%</span></div>
+    </div>
+    <p class="result-disclaimer">Wynik orientacyjny, <strong>wyłącznie do celów badawczych</strong> — nie zastępuje oceny klinicznej.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6c0 3 4 5 9 5s9-2 9-5V7"/></svg>
+        <p><strong>Dane treningowe</strong><br/>296 528 operacji kardiochirurgicznych u dorosłych (KROK, 2012–2024).</p>
+      </div>
+      <div class="foot-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
+        <p><strong>Walidacja punktu końcowego</strong><br/>Zgon w ciągu 30 dni zweryfikowany wobec rejestru zgonów Ministerstwa Zdrowia (PESEL).</p>
+      </div>
+      <div class="foot-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+        <p><strong>Prywatność</strong><br/>Obliczenia w całości w Twojej przeglądarce. Żadne dane pacjenta nie są wysyłane ani zapisywane.</p>
+      </div>
+    </div>
+    <p class="foot-disclaimer"><strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong>
+       Wersja uproszczona (20 zmiennych klinicznych) modelu badawczego.</p>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
