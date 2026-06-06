@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Autorzy projektu — Kalkulator ryzyka kardiochirurgicznego</title>
+<meta name="description" content="Zespół i instytucje stojące za kalkulatorem ryzyka kardiochirurgicznego opartym na danych KROK." />
+<meta name="theme-color" content="#0b1733" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e11d48' d='M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z'/%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:url" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/autorzy.html" />
+<meta property="og:title" content="Autorzy projektu — Kalkulator ryzyka kardiochirurgicznego" />
+<meta property="og:description" content="Zespół i instytucje stojące za kalkulatorem ryzyka opartym na danych KROK." />
+<meta property="og:image" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/og-image.png" />
+<script>
+  (function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}
+  document.documentElement.classList.add('js');})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Przełącz jasny/ciemny motyw" title="Jasny / ciemny motyw">
+  <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+</button>
+
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <svg class="hero-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z"/></svg>
+    <div class="grain"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="h" d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z" />
+          <path class="p" d="M5 12 H9 L10.5 8.5 L13 15.5 L14.5 12 H19" />
+        </svg>
+      </span>
+      <b>Kardio<span>Risk</span></b>
+    </div>
+    <h1>Zespół i autorzy projektu</h1>
+    <p class="hero-sub">Ludzie i instytucje, którzy stworzyli kalkulator ryzyka kardiochirurgicznego
+       na podstawie polskiego rejestru <strong>KROK</strong>.</p>
+    <div class="backbar">
+      <a class="backlink" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Wróć do kalkulatora</a>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 L0,18 C200,38 400,4 600,16 C800,28 1000,40 1200,14 L1200,40 Z" />
+  </svg>
+</header>
+
+<main class="wrap">
+
+  <!-- O PROJEKCIE -->
+  <section class="card reveal">
+    <div class="card-head">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5m0-3h.01"/></svg>
+      <h2>O projekcie</h2>
+    </div>
+    <p class="author-bio" style="font-size:.95rem">
+      Kalkulator powstał w ramach projektu badawczego wykorzystującego dane <strong>Krajowego Rejestru
+      Operacji Kardiochirurgicznych (KROK)</strong>. Model uczenia maszynowego (gradient boosting) przewiduje
+      30-dniową śmiertelność po operacji kardiochirurgicznej u dorosłych i w walidacji czasowej osiąga
+      <strong>AUC 0,805</strong> wobec 0,773 dla EuroSCORE II. Punkt końcowy zweryfikowano wobec rejestru
+      zgonów Ministerstwa Zdrowia (PESEL). Celem projektu jest dostarczenie precyzyjnego, niezależnego
+      narzędzia oceny ryzyka opartego na rzeczywistych polskich danych klinicznych.
+    </p>
+  </section>
+
+  <!-- AUTORZY -->
+  <div class="section-title">
+    <h2>Autorzy</h2><span class="line"></span>
+  </div>
+  <section class="card reveal">
+    <figure class="team-photo">
+      <img src="zespol.jpg" alt="Zespół autorów na sali operacyjnej" onerror="this.remove()" />
+      <div class="team-ph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-4 4 3 3-2 6 5"/></svg>Zdjęcie zespołu — wkrótce</div>
+      <figcaption>Prof. Marian Burysz i prof. Radosław Litwinowicz — Oddział Kardiochirurgiczny, RSS im. dr. Biegańskiego w Grudziądzu</figcaption>
+    </figure>
+    <div class="authors-grid">
+
+      <div class="author">
+        <div class="author-body">
+          <div class="author-name">prof. Radosław Litwinowicz</div>
+          <span class="author-role">Kardiochirurgia · AI w medycynie</span>
+          <p class="author-affil"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg>Oddział Kardiochirurgiczny, RSS im. dr. W. Biegańskiego (Grudziądz) · Politechnika Bydgoska</p>
+          <p class="author-bio">Kardiochirurg, profesor nauk medycznych — jeden z najmłodszych profesorów w polskiej
+            medycynie. Przewodniczący Rady Naukowej Dyscypliny Nauki Medyczne Politechniki Bydgoskiej;
+            w Grudziądzu rozwija program kardiochirurgii hybrydowej i małoinwazyjnej. Laureat nagrody ISMICS
+            oraz stypendysta Francis Fontan Award EACTS. Zwolennik wykorzystania modeli AI w medycynie.</p>
+          <div class="author-links">
+            <a href="https://www.linkedin.com/in/rados%C5%82aw-litwinowicz-0b57b8262/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.98 3.5A2.5 2.5 0 102.5 6 2.49 2.49 0 004.98 3.5zM3 8.98h4v12H3zM9 8.98h3.8v1.64h.05a4.17 4.17 0 013.75-2.06c4 0 4.75 2.64 4.75 6.07v6.35h-4v-5.63c0-1.34 0-3.07-1.87-3.07s-2.16 1.46-2.16 2.97v5.73H9z"/></svg>LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="author">
+        <div class="author-body">
+          <div class="author-name">prof. Marian Burysz</div>
+          <span class="author-role">Kardiochirurgia · chirurgia aorty</span>
+          <p class="author-affil"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg>Oddział Kardiochirurgiczny, RSS im. dr. W. Biegańskiego (Grudziądz) · Wydział Medyczny PBŚ</p>
+          <p class="author-bio">Specjalista kardiochirurgii (egzamin zdany z wyróżnieniem), koordynator Oddziału
+            Kardiochirurgicznego w Grudziądzu i twórca tamtejszego Centrum Leczenia Aorty. Jako pierwszy na
+            świecie wykonał endowaskularną wymianę łuku aorty stentgraftem trójodgałęzionym. Adiunkt Wydziału
+            Medycznego PBŚ; autor publikacji w czasopismach międzynarodowych poświęconych leczeniu tętniaków
+            i rozwarstwień aorty.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INSTYTUCJE -->
+  <div class="section-title">
+    <h2>Instytucje</h2><span class="line"></span>
+  </div>
+  <section class="card reveal">
+    <div class="inst-grid">
+      <div class="inst">
+        <img class="inst-logo" src="logo-szpital.png" alt="Logo szpitala" onerror="this.remove()" />
+        <span class="inst-ph"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01"/></svg></span>
+        <div><b>Regionalny Szpital Specjalistyczny im. dr. W. Biegańskiego</b><span>Grudziądz · ośrodek kliniczny (kardiochirurgia)</span></div>
+      </div>
+      <div class="inst">
+        <img class="inst-logo" src="logo-krok.png" alt="Logo KROK" onerror="this.remove()" />
+        <span class="inst-ph"><svg viewBox="0 0 24 24"><path d="M4 19V6a2 2 0 012-2h12a2 2 0 012 2v13M4 19l8-3 8 3M4 19v1h16v-1"/></svg></span>
+        <div><b>KROK — Krajowy Rejestr Operacji Kardiochirurgicznych</b><span>Źródło danych (2012–2024)</span></div>
+      </div>
+      <div class="inst">
+        <img class="inst-logo" src="logo-pb.png" alt="Logo Politechniki Bydgoskiej" onerror="this.remove()" />
+        <span class="inst-ph"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01"/></svg></span>
+        <div><b>Politechnika Bydgoska — Wydział Medyczny</b><span>Partner akademicki</span></div>
+      </div>
+      <div class="inst">
+        <img class="inst-logo" src="logo-ptkt.png" alt="Logo PTKT" onerror="this.remove()" />
+        <span class="inst-ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8m-4-4h8"/></svg></span>
+        <div><b>Polskie Towarzystwo Kardio-Torakochirurgiczne</b><span>Towarzystwo naukowe (PTKT)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="foot-disclaimer"><strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong>
+       Model na danych KROK (2012–2024) · punkt końcowy zweryfikowany wobec rejestru zgonów MZ.</p>
+  </footer>
+</main>
+
+<script>
+  // motyw + płynne wejścia (lekki skrypt współdzielony logicznie z app.js)
+  (function(){
+    var btn=document.getElementById('themeToggle');
+    if(btn) btn.addEventListener('click',function(){
+      var next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('theme',next);}catch(e){}
+    });
+    var els=Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    els.forEach(function(e,i){e.style.transitionDelay=(Math.min(i,6)*60)+'ms';});
+    var pending=els;
+    function check(){
+      var vh=window.innerHeight||document.documentElement.clientHeight;
+      pending=pending.filter(function(e){
+        var r=e.getBoundingClientRect();
+        if(r.top<vh-40&&r.bottom>0){e.classList.add('in');return false;}
+        return true;
+      });
+      if(!pending.length){window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);}
+    }
+    function onScroll(){requestAnimationFrame(check);}
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
+    requestAnimationFrame(check); setTimeout(check,250);
+    setTimeout(function(){els.forEach(function(e){e.classList.add('in');});},1800);
+  })();
+</script>
+</body>
+</html>
