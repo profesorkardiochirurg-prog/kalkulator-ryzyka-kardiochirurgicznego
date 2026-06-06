@@ -4,7 +4,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kalkulator ryzyka kardiochirurgicznego — 30-dniowa śmiertelność</title>
-<meta name="description" content="Kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Model uczenia maszynowego na danych KROK (AUC 0,805). Wyłącznie do celów badawczych." />
+<meta name="description" content="Kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Uniwersalny model uczenia maszynowego na danych KROK (AUC 0,805, bije EuroSCORE II). Wyłącznie do celów badawczych." />
+<meta name="theme-color" content="#0b1733" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e11d48' d='M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z'/%3E%3C/svg%3E" />
+<!-- Open Graph / podgląd linku -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:url" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/" />
+<meta property="og:title" content="Kalkulator ryzyka kardiochirurgicznego (30-dniowa śmiertelność)" />
+<meta property="og:description" content="Uniwersalny model uczenia maszynowego na danych KROK — AUC 0,805 (bije EuroSCORE II 0,773). Wyłącznie do celów badawczych." />
+<meta property="og:image" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kalkulator ryzyka kardiochirurgicznego (30-dniowa śmiertelność)" />
+<meta name="twitter:description" content="Uniwersalny model ML na danych KROK — AUC 0,805. Wyłącznie do celów badawczych." />
+<meta name="twitter:image" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -15,23 +30,26 @@
 <!-- ===== HERO ===== -->
 <header class="hero">
   <div class="hero-bg" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <svg class="hero-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z"/></svg>
     <svg class="ecg" viewBox="0 0 1200 200" preserveAspectRatio="none">
       <path d="M0,100 L300,100 L330,100 L345,60 L360,140 L375,30 L390,170 L405,100 L460,100
                L600,100 L630,100 L645,60 L660,140 L675,30 L690,170 L705,100 L760,100
                L900,100 L930,100 L945,60 L960,140 L975,30 L990,170 L1005,100 L1200,100" />
     </svg>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+    <div class="grain"></div>
   </div>
 
   <div class="hero-inner">
     <div class="logo">
-      <svg viewBox="0 0 24 24" class="heart" aria-hidden="true">
-        <path d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4
-                 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z" />
-        <path class="pulse" d="M5 12 H9 L10.5 8.5 L13 15.5 L14.5 12 H19" />
-      </svg>
-      <span>KardioRisk</span>
+      <span class="mark">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="h" d="M12 21s-7.5-4.9-10.2-9.3C-0.3 8 1.6 4 5.2 4c2 0 3.3 1.1 4.1 2.3C9.5 5.1 10.8 4 12.8 4 16.4 4 18.3 8 16.2 11.7 15 13.6 13 15.8 12 21z" />
+          <path class="p" d="M5 12 H9 L10.5 8.5 L13 15.5 L14.5 12 H19" />
+        </svg>
+      </span>
+      <b>Kardio<span>Risk</span></b>
     </div>
     <h1>Kalkulator ryzyka 30-dniowej śmiertelności</h1>
     <p class="hero-sub"><strong>Uniwersalny</strong> model uczenia maszynowego (gradient boosting) na polskim rejestrze
@@ -47,6 +65,9 @@
       <span><strong>Wyłącznie do celów badawczych i demonstracyjnych.</strong> Nie stosować do decyzji klinicznych.</span>
     </div>
   </div>
+  <svg class="hero-wave" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 L0,18 C200,38 400,4 600,16 C800,28 1000,40 1200,14 L1200,40 Z" />
+  </svg>
 </header>
 
 <main class="wrap">
@@ -158,9 +179,21 @@
   <!-- Wynik -->
   <section id="result" class="card result hidden" aria-live="polite">
     <div class="gauge-wrap">
-      <svg class="gauge" viewBox="0 0 220 130">
+      <svg class="gauge" viewBox="0 0 220 132">
+        <defs>
+          <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#86efac"/><stop offset="1" stop-color="#16a34a"/></linearGradient>
+          <linearGradient id="gYellow" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+          <linearGradient id="gOrange" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fdba74"/><stop offset="1" stop-color="#ea580c"/></linearGradient>
+          <linearGradient id="gRed" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fca5a5"/><stop offset="1" stop-color="#dc2626"/></linearGradient>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
         <path class="gauge-track" d="M20,120 A90,90 0 0 1 200,120" />
+        <g id="gaugeTicks" class="gauge-ticks"></g>
+        <line id="cohortMark" class="cohort-mark" />
         <path id="gaugeArc" class="gauge-arc" d="M20,120 A90,90 0 0 1 200,120" />
+        <circle id="gaugePointer" class="gauge-pointer" r="7" cx="20" cy="120" />
       </svg>
       <div class="gauge-center">
         <div id="riskPct" class="risk-pct">—</div>
@@ -179,15 +212,15 @@
   <footer>
     <div class="foot-grid">
       <div class="foot-item">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6c0 3 4 5 9 5s9-2 9-5V7"/></svg>
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6c0 3 4 5 9 5s9-2 9-5V7"/></svg>
         <p><strong>Dane treningowe</strong><br/>296 528 operacji kardiochirurgicznych u dorosłych (KROK, 2012–2024).</p>
       </div>
       <div class="foot-item">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
         <p><strong>Walidacja punktu końcowego</strong><br/>Zgon w ciągu 30 dni zweryfikowany wobec rejestru zgonów Ministerstwa Zdrowia (PESEL).</p>
       </div>
       <div class="foot-item">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
         <p><strong>Prywatność</strong><br/>Obliczenia w całości w Twojej przeglądarce. Żadne dane pacjenta nie są wysyłane ani zapisywane.</p>
       </div>
     </div>

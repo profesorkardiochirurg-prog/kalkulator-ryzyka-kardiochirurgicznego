@@ -23,12 +23,41 @@ function setBtn(text, { loading = false, disabled = false } = {}) {
   btn.classList.toggle("loading", loading);
 }
 
+// Geometria półkolistego wskaźnika: środek (110,120), promień 90; frac 0=lewo, 1=prawo.
+const GC = { cx: 110, cy: 120, r: 90 };
+function pointAt(frac, r) {
+  const a = Math.PI * (1 - frac);
+  return { x: GC.cx + r * Math.cos(a), y: GC.cy - r * Math.sin(a) };
+}
+const SVGNS = "http://www.w3.org/2000/svg";
+
+function buildGauge() {
+  // podziałka co 10%
+  const g = $("gaugeTicks");
+  g.innerHTML = "";
+  for (let v = 0; v <= GAUGE_MAX; v += 10) {
+    const f = v / GAUGE_MAX;
+    const a = pointAt(f, 78), b = pointAt(f, 92);
+    const ln = document.createElementNS(SVGNS, "line");
+    ln.setAttribute("x1", a.x.toFixed(1)); ln.setAttribute("y1", a.y.toFixed(1));
+    ln.setAttribute("x2", b.x.toFixed(1)); ln.setAttribute("y2", b.y.toFixed(1));
+    g.appendChild(ln);
+  }
+  // znacznik średniej w kohorcie (~4,5%)
+  const cf = 4.5 / GAUGE_MAX;
+  const c1 = pointAt(cf, 75), c2 = pointAt(cf, 99);
+  const cm = $("cohortMark");
+  cm.setAttribute("x1", c1.x.toFixed(1)); cm.setAttribute("y1", c1.y.toFixed(1));
+  cm.setAttribute("x2", c2.x.toFixed(1)); cm.setAttribute("y2", c2.y.toFixed(1));
+}
+
 async function init() {
-  // przygotuj długość łuku wskaźnika
+  // przygotuj wskaźnik
   const arc = $("gaugeArc");
   arcLen = arc.getTotalLength();
   arc.style.strokeDasharray = arcLen;
   arc.style.strokeDashoffset = arcLen;   // start: pusty
+  buildGauge();
 
   try {
     const spec = await (await fetch("model_features.json", { cache: "no-store" })).json();
@@ -106,10 +135,10 @@ async function predict() {
 }
 
 function levelFor(risk) {
-  if (risk < 2)  return { txt: "Ryzyko niskie",       dot: "🟢", color: "var(--green)",  bg: "#dcfce7", fg: "#15803d" };
-  if (risk < 5)  return { txt: "Ryzyko umiarkowane",  dot: "🟡", color: "var(--yellow)", bg: "#fef3c7", fg: "#b45309" };
-  if (risk < 10) return { txt: "Ryzyko podwyższone",  dot: "🟠", color: "var(--orange)", bg: "#ffedd5", fg: "#c2410c" };
-  return            { txt: "Ryzyko wysokie",       dot: "🔴", color: "var(--red)",    bg: "#fee2e2", fg: "#b91c1c" };
+  if (risk < 2)  return { txt: "Ryzyko niskie",       dot: "🟢", color: "#16a34a", grad: "url(#gGreen)",  bg: "#dcfce7", fg: "#15803d" };
+  if (risk < 5)  return { txt: "Ryzyko umiarkowane",  dot: "🟡", color: "#d97706", grad: "url(#gYellow)", bg: "#fef3c7", fg: "#b45309" };
+  if (risk < 10) return { txt: "Ryzyko podwyższone",  dot: "🟠", color: "#ea580c", grad: "url(#gOrange)", bg: "#ffedd5", fg: "#c2410c" };
+  return            { txt: "Ryzyko wysokie",       dot: "🔴", color: "#dc2626", grad: "url(#gRed)",    bg: "#fee2e2", fg: "#b91c1c" };
 }
 
 const fmtPct = (p) => p.toFixed(1).replace(".", ",") + "%";
@@ -124,11 +153,17 @@ function showResult(risk) {
   pill.style.background = lvl.bg;
   pill.style.color = lvl.fg;
 
-  // wskaźnik kołowy
+  // wskaźnik kołowy: łuk z gradientem + ruchomy wskaźnik (kropka)
   const frac = Math.min(risk / GAUGE_MAX, 1);
   const arc = $("gaugeArc");
-  arc.style.stroke = lvl.color;
+  arc.style.stroke = lvl.grad;
   arc.style.strokeDashoffset = arcLen * (1 - frac);
+  const p = pointAt(frac, GC.r);
+  const ptr = $("gaugePointer");
+  ptr.setAttribute("cx", p.x.toFixed(1));
+  ptr.setAttribute("cy", p.y.toFixed(1));
+  ptr.style.stroke = lvl.color;
+  ptr.classList.add("on");
 
   const res = $("result");
   res.classList.remove("hidden");
