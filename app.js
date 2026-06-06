@@ -16,6 +16,10 @@ let session = null;
 let FEAT = null;
 let INPUT_NAME = "input";
 let arcLen = 0;
+let lastRisk = null;
+
+// tłumaczenie (słownik z i18n.js)
+const t = (k) => (window.I18N && window.I18N[window.LANG] && window.I18N[window.LANG][k]) || k;
 
 function setBtn(text, { loading = false, disabled = false } = {}) {
   ctaTxt.textContent = text;
@@ -52,6 +56,7 @@ function buildGauge() {
 }
 
 async function init() {
+  setBtn(t("btn.loading"), { disabled: true });
   // przygotuj wskaźnik
   const arc = $("gaugeArc");
   arcLen = arc.getTotalLength();
@@ -64,10 +69,10 @@ async function init() {
     FEAT = spec.feat;
     session = await ort.InferenceSession.create("model.onnx", { executionProviders: ["wasm"] });
     INPUT_NAME = session.inputNames[0] || "input";
-    setBtn("Oblicz ryzyko", { disabled: false });
+    setBtn(t("btn.calc"), { disabled: false });
   } catch (e) {
     console.error(e);
-    setBtn("Błąd ładowania modelu", { disabled: true });
+    setBtn(t("btn.loadError"), { disabled: true });
     btn.title = String(e);
   }
 }
@@ -135,13 +140,13 @@ async function predict() {
 }
 
 function levelFor(risk) {
-  if (risk < 2)  return { txt: "Ryzyko niskie",       dot: "🟢", color: "#16a34a", grad: "url(#gGreen)",  bg: "#dcfce7", fg: "#15803d" };
-  if (risk < 5)  return { txt: "Ryzyko umiarkowane",  dot: "🟡", color: "#d97706", grad: "url(#gYellow)", bg: "#fef3c7", fg: "#b45309" };
-  if (risk < 10) return { txt: "Ryzyko podwyższone",  dot: "🟠", color: "#ea580c", grad: "url(#gOrange)", bg: "#ffedd5", fg: "#c2410c" };
-  return            { txt: "Ryzyko wysokie",       dot: "🔴", color: "#dc2626", grad: "url(#gRed)",    bg: "#fee2e2", fg: "#b91c1c" };
+  if (risk < 2)  return { key: "level.low",  dot: "🟢", color: "#16a34a", grad: "url(#gGreen)",  bg: "#dcfce7", fg: "#15803d" };
+  if (risk < 5)  return { key: "level.mod",  dot: "🟡", color: "#d97706", grad: "url(#gYellow)", bg: "#fef3c7", fg: "#b45309" };
+  if (risk < 10) return { key: "level.elev", dot: "🟠", color: "#ea580c", grad: "url(#gOrange)", bg: "#ffedd5", fg: "#c2410c" };
+  return            { key: "level.high", dot: "🔴", color: "#dc2626", grad: "url(#gRed)",    bg: "#fee2e2", fg: "#b91c1c" };
 }
 
-const fmtPct = (p) => p.toFixed(1).replace(".", ",") + "%";
+const fmtPct = (p) => p.toFixed(1).replace(".", window.LANG === "en" ? "." : ",") + "%";
 
 const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -198,12 +203,13 @@ function setupTheme() {
 }
 
 function showResult(risk) {
+  lastRisk = risk;
   const lvl = levelFor(risk);
   $("riskPct").style.color = lvl.color;
   animateNumber($("riskPct"), risk);
 
   const pill = $("riskLevel");
-  pill.textContent = lvl.dot + " " + lvl.txt;
+  pill.textContent = lvl.dot + " " + t(lvl.key);
   pill.style.background = lvl.bg;
   pill.style.color = lvl.fg;
 
@@ -228,16 +234,28 @@ function showResult(risk) {
 $("form").addEventListener("submit", async (ev) => {
   ev.preventDefault();
   if (!session) return;
-  setBtn("Liczę…", { loading: true, disabled: true });
+  setBtn(t("btn.calculating"), { loading: true, disabled: true });
   try {
     showResult(await predict());
   } catch (e) {
     console.error(e);
-    alert("Błąd obliczeń: " + e.message);
+    alert(t("err.calc") + e.message);
   } finally {
-    setBtn("Oblicz ryzyko", { disabled: false });
+    setBtn(t("btn.calc"), { disabled: false });
   }
 });
+
+// Przerysuj dynamiczne teksty po zmianie języka.
+function refreshI18n() {
+  if (session && !btn.classList.contains("loading")) setBtn(t("btn.calc"), { disabled: false });
+  else if (!session) setBtn(t("btn.loading"), { disabled: true });
+  if (lastRisk != null) {
+    const lvl = levelFor(lastRisk);
+    $("riskPct").textContent = fmtPct(lastRisk);
+    $("riskLevel").textContent = lvl.dot + " " + t(lvl.key);
+  }
+}
+window.addEventListener("langchange", refreshI18n);
 
 setupTheme();
 setupReveal();
