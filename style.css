@@ -222,9 +222,9 @@ footer{margin-top:8px}
 /* ===== STOPKA: wykonawca (Borsuk Studio) ===== */
 .credit{display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:24px;
   font-size:.82rem; color:var(--muted); font-weight:600}
-.credit-logo{width:72px; height:72px; object-fit:contain; opacity:.95; transition:opacity .15s, transform .15s}
-.credit a:hover .credit-logo{opacity:1; transform:translateY(-2px)}
-[data-theme="dark"] .credit-logo{filter:invert(1) brightness(1.8)}
+.credit-logo{width:84px; height:84px; object-fit:contain; background:#fff; border-radius:16px;
+  padding:8px; box-shadow:var(--shadow-sm); transition:transform .15s}
+.credit a:hover .credit-logo{transform:translateY(-2px)}
 
 /* ===== CIEMNY MOTYW ===== */
 [data-theme="dark"]{
