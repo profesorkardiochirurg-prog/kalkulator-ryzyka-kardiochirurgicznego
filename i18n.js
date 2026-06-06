@@ -4,10 +4,11 @@
   const I18N = {
     pl: {
       // dokumenty
-      "doc.title": "Kalkulator ryzyka kardiochirurgicznego — 30-dniowa śmiertelność",
-      "doc.desc": "Kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Uniwersalny model uczenia maszynowego na danych KROK (AUC 0,805, bije EuroSCORE II). Wyłącznie do celów badawczych.",
-      "doc.titleAuthors": "Autorzy projektu — Kalkulator ryzyka kardiochirurgicznego",
-      "doc.descAuthors": "Zespół i instytucje stojące za kalkulatorem ryzyka kardiochirurgicznego opartym na danych KROK.",
+      "doc.title": "CARMA — Kalkulator ryzyka kardiochirurgicznego (30-dniowa śmiertelność)",
+      "doc.desc": "CARMA — kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Uniwersalny model uczenia maszynowego na danych KROK (AUC 0,805, bije EuroSCORE II). Wyłącznie do celów badawczych.",
+      "doc.titleAuthors": "CARMA — Autorzy projektu",
+      "doc.descAuthors": "Zespół i instytucje stojące za CARMA — kalkulatorem ryzyka kardiochirurgicznego opartym na danych KROK.",
+      "brand.full": "CARdiac surgery Mortality Assessment",
       // UI
       "ui.theme": "Jasny / ciemny motyw",
       "ui.lang": "Zmień język (polski / angielski)",
@@ -109,10 +110,11 @@
       "a.foot.disc": `<strong>Wyłącznie do celów badawczych — nie do decyzji klinicznych.</strong> Model na danych KROK (2012–2024) · punkt końcowy zweryfikowany wobec rejestru zgonów MZ.`
     },
     en: {
-      "doc.title": "Cardiac Surgery Risk Calculator — 30-day mortality",
-      "doc.desc": "Calculator of 30-day mortality risk after cardiac surgery. Universal machine-learning model on KROK data (AUC 0.805, beats EuroSCORE II). For research purposes only.",
-      "doc.titleAuthors": "Project authors — Cardiac Surgery Risk Calculator",
-      "doc.descAuthors": "The team and institutions behind the cardiac surgery risk calculator built on KROK data.",
+      "doc.title": "CARMA — Cardiac Surgery Risk Calculator (30-day mortality)",
+      "doc.desc": "CARMA — calculator of 30-day mortality risk after cardiac surgery. Universal machine-learning model on KROK data (AUC 0.805, beats EuroSCORE II). For research purposes only.",
+      "doc.titleAuthors": "CARMA — Project authors",
+      "doc.descAuthors": "The team and institutions behind CARMA — the cardiac surgery risk calculator built on KROK data.",
+      "brand.full": "CARdiac surgery Mortality Assessment",
       "ui.theme": "Light / dark theme",
       "ui.lang": "Change language (Polish / English)",
       "hero.title": "30-day Mortality Risk Calculator",

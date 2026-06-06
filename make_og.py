@@ -42,10 +42,12 @@ f_badge = ImageFont.truetype(fp + "DejaVuSans-Bold.ttf", 30)
 f_small = ImageFont.truetype(fp + "DejaVuSans.ttf", 25)
 f_heart = ImageFont.truetype(fp + "DejaVuSans.ttf", 78)
 
-# logo: kafelek + serce
+# logo: kafelek + serce + nazwa CARMA
+f_acr = ImageFont.truetype(fp + "DejaVuSans.ttf", 21)
 d.rounded_rectangle([80, 70, 188, 178], radius=26, fill=(225, 29, 72))
 d.text((134, 132), "♥", font=f_heart, fill=(255, 255, 255), anchor="mm")
-d.text((210, 124), "KardioRisk", font=f_logo, fill=(255, 255, 255), anchor="lm")
+d.text((210, 110), "CARMA", font=f_logo, fill=(255, 255, 255), anchor="lm")
+d.text((212, 150), "CARdiac surgery Mortality Assessment", font=f_acr, fill=(94, 234, 212), anchor="lm")
 
 # tytuł
 d.multiline_text((80, 250), "Kalkulator ryzyka\n30-dniowej śmiertelności",
