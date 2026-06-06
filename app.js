@@ -143,10 +143,64 @@ function levelFor(risk) {
 
 const fmtPct = (p) => p.toFixed(1).replace(".", ",") + "%";
 
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Animowane „naliczanie" liczby wyniku (count-up).
+function animateNumber(el, to, dur = 850) {
+  if (REDUCE) { el.textContent = fmtPct(to); return; }
+  const t0 = performance.now();
+  function step(now) {
+    const k = Math.min((now - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - k, 3);   // ease-out cubic
+    el.textContent = fmtPct(to * eased);
+    if (k < 1) requestAnimationFrame(step);
+    else el.textContent = fmtPct(to);
+  }
+  requestAnimationFrame(step);
+}
+
+// Płynne wejścia kart przy scrollu — oparte na getBoundingClientRect (działa wszędzie),
+// z bezpiecznikiem: treść nigdy nie zostaje ukryta nawet gdyby coś zawiodło.
+function setupReveal() {
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  els.forEach((e, i) => { e.style.transitionDelay = (Math.min(i, 6) * 60) + "ms"; });
+  let pending = els;
+  function check() {
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    pending = pending.filter((e) => {
+      const r = e.getBoundingClientRect();
+      if (r.top < vh - 40 && r.bottom > 0) { e.classList.add("in"); return false; }
+      return true;
+    });
+    if (!pending.length) {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    }
+  }
+  function onScroll() { requestAnimationFrame(check); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  requestAnimationFrame(check);
+  setTimeout(check, 250);
+  // bezpiecznik ostateczny — odsłoń wszystko, gdyby cokolwiek poszło nie tak
+  setTimeout(() => els.forEach((e) => e.classList.add("in")), 1800);
+}
+
+// Przełącznik jasny/ciemny motyw (zapamiętany w localStorage — to preferencja UI, nie dane pacjenta).
+function setupTheme() {
+  const btn = $("themeToggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+}
+
 function showResult(risk) {
   const lvl = levelFor(risk);
-  $("riskPct").textContent = fmtPct(risk);
   $("riskPct").style.color = lvl.color;
+  animateNumber($("riskPct"), risk);
 
   const pill = $("riskLevel");
   pill.textContent = lvl.dot + " " + lvl.txt;
@@ -185,4 +239,6 @@ $("form").addEventListener("submit", async (ev) => {
   }
 });
 
+setupTheme();
+setupReveal();
 init();
