@@ -59,8 +59,8 @@
   ],
   "model_type": "sklearn HistGradientBoostingClassifier",
   "design": "UNIWERSALNY na wzor EuroSCORE II — Weight of intervention + zmienne EuroSCORE II, ocenia kazda operacje",
-  "auc_test": 0.805,
-  "euroscore_auc": 0.773,
+  "auc_test": 0.809,
+  "euroscore_auc": 0.776,
   "n_train": 296528,
   "event_rate": 0.045
 }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title data-i18n="doc.title">Kalkulator ryzyka kardiochirurgicznego — 30-dniowa śmiertelność</title>
-<meta name="description" data-i18n-attr="content:doc.desc" content="Kalkulator ryzyka 30-dniowej śmiertelności po operacji kardiochirurgicznej. Uniwersalny model uczenia maszynowego na danych KROK (AUC 0,805, bije EuroSCORE II). Wyłącznie do celów badawczych." />
+<title data-i18n="doc.title">Kalkulator ryzyka kardiochirurgicznego — śmiertelność operacyjna</title>
+<meta name="description" data-i18n-attr="content:doc.desc" content="Kalkulator ryzyka śmiertelności operacyjnej po operacji kardiochirurgicznej. Uniwersalny model uczenia maszynowego na danych KROK (AUC 0,809, bije EuroSCORE II). Wyłącznie do celów badawczych." />
 <meta name="theme-color" content="#0b1733" />
 <script>
   // Motyw + język ustawiane przed renderem (bez mignięcia). localStorage = tylko preferencje UI.
@@ -21,8 +21,8 @@
 <!-- Open Graph / podgląd linku -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/" />
-<meta property="og:title" content="CARMA — Kalkulator ryzyka kardiochirurgicznego (30-dniowa śmiertelność)" />
-<meta property="og:description" content="CARMA (CARdiac surgery Mortality Assessment) — uniwersalny model ML na danych KROK, AUC 0,805 (bije EuroSCORE II 0,773). Wyłącznie do celów badawczych." />
+<meta property="og:title" content="CARMA — Kalkulator ryzyka kardiochirurgicznego (śmiertelność operacyjna)" />
+<meta property="og:description" content="CARMA (CARdiac surgery Mortality Assessment) — uniwersalny model ML na danych KROK, AUC 0,809 (bije EuroSCORE II 0,776). Wyłącznie do celów badawczych." />
 <meta property="og:image" content="https://profesorkardiochirurg-prog.github.io/kalkulator-ryzyka-kardiochirurgicznego/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -73,14 +73,14 @@
       <b>CAR<span>MA</span></b>
     </div>
     <div class="brand-full" data-i18n="brand.full">CARdiac surgery Mortality Assessment</div>
-    <h1 data-i18n="hero.title">Kalkulator ryzyka 30-dniowej śmiertelności</h1>
+    <h1 data-i18n="hero.title">Kalkulator ryzyka śmiertelności operacyjnej</h1>
     <p class="hero-sub" data-i18n="hero.sub"><strong>Uniwersalny</strong> model uczenia maszynowego (gradient boosting) na polskim rejestrze
        <strong>KROK</strong> — ocenia <strong>każdą</strong> operację kardiochirurgiczną u dorosłych.</p>
     <div class="badges">
-      <span class="badge badge-primary" data-i18n="badge.auc">AUC 0,805</span>
-      <span class="badge" data-i18n="badge.euro">EuroSCORE II: 0,773</span>
+      <span class="badge badge-primary" data-i18n="badge.auc">AUC 0,809</span>
+      <span class="badge" data-i18n="badge.euro">EuroSCORE II: 0,776</span>
       <span class="badge" data-i18n="badge.universal">Uniwersalny — jak EuroSCORE II</span>
-      <span class="badge" data-i18n="badge.n">296 528 operacji · 2012–2024</span>
+      <span class="badge" data-i18n="badge.n">296 514 operacji · 2012–2024</span>
     </div>
     <div class="hero-warn" role="alert">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm0 6v6m0 4h.01"/></svg>
@@ -219,12 +219,12 @@
       </svg>
       <div class="gauge-center">
         <div id="riskPct" class="risk-pct">—</div>
-        <div class="risk-cap" data-i18n="res.cap">ryzyko zgonu / 30 dni</div>
+        <div class="risk-cap" data-i18n="res.cap">ryzyko zgonu operacyjnego</div>
       </div>
     </div>
     <div id="riskLevel" class="risk-level"></div>
     <div class="result-meta">
-      <div class="meta-item"><span class="meta-k" data-i18n="res.cohort">Średnia w kohorcie</span><span class="meta-v" data-i18n="res.cohortVal">~4,5%</span></div>
+      <div class="meta-item"><span class="meta-k" data-i18n="res.cohort">Średnia w kohorcie</span><span class="meta-v" data-i18n="res.cohortVal">~5,0%</span></div>
       <div class="meta-item"><span class="meta-k" data-i18n="res.scale">Skala wskaźnika</span><span class="meta-v" data-i18n="res.scaleVal">0–60%</span></div>
     </div>
     <p class="result-disclaimer" data-i18n="res.disc">Wynik orientacyjny, <strong>wyłącznie do celów badawczych</strong> — nie zastępuje oceny klinicznej.</p>
@@ -235,11 +235,11 @@
     <div class="foot-grid">
       <div class="foot-item reveal">
         <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6c0 3 4 5 9 5s9-2 9-5V7"/></svg>
-        <p data-i18n="foot.train"><strong>Dane treningowe</strong><br/>296 528 operacji kardiochirurgicznych u dorosłych (KROK, 2012–2024).</p>
+        <p data-i18n="foot.train"><strong>Dane treningowe</strong><br/>296 514 operacji kardiochirurgicznych u dorosłych (KROK, 2012–2024).</p>
       </div>
       <div class="foot-item reveal">
         <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>
-        <p data-i18n="foot.valid"><strong>Walidacja punktu końcowego</strong><br/>Zgon w ciągu 30 dni zweryfikowany wobec rejestru zgonów Ministerstwa Zdrowia (PESEL).</p>
+        <p data-i18n="foot.valid"><strong>Walidacja punktu końcowego</strong><br/>Zgon operacyjny (w szpitalu lub w ciągu 30 dni) zweryfikowany wobec rejestru zgonów Ministerstwa Zdrowia (PESEL).</p>
       </div>
       <div class="foot-item reveal">
         <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
